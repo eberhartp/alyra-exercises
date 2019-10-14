@@ -9,7 +9,6 @@ let solution = Math.floor(1 + Math.random() * 100);
 console.log("Devinez un chiffre entre 1 et 100")
 
 rli.on('line', (userInput) => {
-    console.log(` ${userInput}`);
     userInput = parseInt(userInput);
 
     if (userInput === solution) {
