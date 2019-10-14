@@ -1,3 +1,12 @@
+function palindromeLoop(word){
+    for (let i = 0; i < word.length / 2; i++) {
+        const element = word[i];
+        if (element !== word[word.length - i - 1])
+            return false;
+    }
+    return true;
+}
+
 function palindrome(word) {
     if (word.length <= 1)
         return true;
