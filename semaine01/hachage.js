@@ -30,9 +30,9 @@ function keyVerification (data, dataKey) {
     return key(Buffer.from(data)).toString("hex") === dataKey;
 }
 
+// Fonction qui donne une chaine dont le hash commence par "66"
+
 let dataBuffer = Buffer.from(process.argv[2]);
 console.log("Double hash :", doubleHash(dataBuffer).toString("hex"));
 console.log("Key :", key(dataBuffer).toString("hex"));
 console.log("Verification :", "pomme", "9169bf3e", keyVerification("pomme", "9169bf3e"));
-
-// Fonction qui donne une chaine dont le hash commence par "66"
