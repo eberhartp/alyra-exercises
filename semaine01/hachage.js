@@ -11,7 +11,7 @@ function pseudohash(string) {
     return hash;
 }
 
-console.log("Pseudohash", pseudohash(process.argv[2]).toString(16));
+console.log("Pseudohash :", pseudohash(process.argv[2]).toString(16));
 
 function sha256(dataBuffer) {
     return crypto.createHash("sha256").update(dataBuffer).digest();
