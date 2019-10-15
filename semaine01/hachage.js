@@ -11,9 +11,28 @@ function pseudohash(string) {
     return hash;
 }
 
-function sha256(string){
-    return crypto.createHash("sha256").update(string).digest("hex");
+console.log("Pseudohash", pseudohash(process.argv[2]).toString(16));
+
+function sha256(dataBuffer) {
+    return crypto.createHash("sha256").update(dataBuffer).digest();
 }
 
-console.log(pseudohash(process.argv[2]).toString(16));
-console.log(sha256(process.argv[2]));
+function doubleHash(dataBuffer) {
+    let hash = sha256(dataBuffer);
+    return sha256(hash);
+}
+
+function key (dataBuffer) {
+    return sha256(dataBuffer).subarray(0, 4);
+}
+
+function keyVerification (data, dataKey) {
+    return key(Buffer.from(data)).toString("hex") === dataKey;
+}
+
+let dataBuffer = Buffer.from(process.argv[2]);
+console.log("Double hash :", doubleHash(dataBuffer).toString("hex"));
+console.log("Key :", key(dataBuffer).toString("hex"));
+console.log("Verification :", "pomme", "9169bf3e", keyVerification("pomme", "9169bf3e"));
+
+// Fonction qui donne une chaine dont le hash commence par "66"
