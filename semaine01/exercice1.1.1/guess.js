@@ -29,5 +29,4 @@ rli.on('line', (userInput) => {
         
         console.log(responseString);
     }
-
 });
