@@ -23,7 +23,7 @@ let transactionsTips = [
 let maxBlockSize = 6000;
 
 function getBlockBitmap(tryNumber) {
-    // Fonction qui renvoie un tableau de booleens correspondant eux
+    // Fonction qui renvoie un tableau de booleens correspondant aux
     // transactions à inclure pour un essai de bloc donné
     let blockBitmap = [false, false, false, false, false, false, false, false];
     for (let i = 0; i < blockBitmap.length; i++) {
@@ -36,7 +36,7 @@ function getBlockBitmap(tryNumber) {
 function getBlockSize(blockBitmap) {
     // Fonction qui renvoie la taille totale d'un bloc correspondant à des
     // transactions données
-    // Renvoie maxBlockSize dès que le total dépasse maxBlockSize
+    // Renvoie maxBlockSize + 1 dès que le total dépasse maxBlockSize
     let totalSize = 0;
     for (let i = 0; i < blockBitmap.length; i++) {
         if (blockBitmap[i])
