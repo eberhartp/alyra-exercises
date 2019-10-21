@@ -32,6 +32,16 @@ class MerkleTree {
     }
 }
 
-merkle = new MerkleTree(["AA", "BB", "CC", "DD", "EE"]);
+
+
+let args = process.argv.slice(2)
+
+if (args.length == 0) {
+    console.log ("node merkle.js <string...>");
+    process.exit(1);
+}
+
+merkle = new MerkleTree(args);
+
 console.log(merkle.leaves);
 console.log(merkle.tree);
