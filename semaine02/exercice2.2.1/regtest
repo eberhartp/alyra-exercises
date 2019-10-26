@@ -1,0 +1,14 @@
+Netid State    Recv-Q   Send-Q      Local Address:Port       Peer Address:Port                                                                                  
+udp   UNCONN   0        0                 0.0.0.0:mdns            0.0.0.0:*                                                                                     
+udp   UNCONN   0        0                 0.0.0.0:50895           0.0.0.0:*                                                                                     
+udp   UNCONN   0        0           127.0.0.53%lo:domain          0.0.0.0:*                                                                                     
+udp   UNCONN   0        0                 0.0.0.0:bootpc          0.0.0.0:*                                                                                     
+udp   UNCONN   0        0                    [::]:mdns               [::]:*                                                                                     
+udp   UNCONN   0        0                    [::]:47835              [::]:*                                                                                     
+tcp   LISTEN   0        100             127.0.0.1:30001           0.0.0.0:*      users:(("bitcoind",pid=2012,fd=19))                                            
+tcp   LISTEN   0        100             127.0.0.1:30002           0.0.0.0:*      users:(("bitcoind",pid=2012,fd=21))                                            
+tcp   LISTEN   0        128         127.0.0.53%lo:domain          0.0.0.0:*                                                                                     
+tcp   LISTEN   0        128             127.0.0.1:18443           0.0.0.0:*      users:(("bitcoind",pid=2012,fd=12))                                            
+tcp   LISTEN   0        128               0.0.0.0:18444           0.0.0.0:*      users:(("bitcoind",pid=2012,fd=41))                                            
+tcp   LISTEN   0        128                 [::1]:18443              [::]:*      users:(("bitcoind",pid=2012,fd=11))                                            
+tcp   LISTEN   0        128                  [::]:18444              [::]:*      users:(("bitcoind",pid=2012,fd=40))                                            
