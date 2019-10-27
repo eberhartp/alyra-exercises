@@ -1,0 +1,15 @@
+{
+  "name": "exercice1.2.8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "exercice1.2.8.js",
+  "dependencies": {
+    "base-58": "0.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
