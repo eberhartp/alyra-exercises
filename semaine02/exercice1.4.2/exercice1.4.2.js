@@ -52,9 +52,9 @@ function conversion(number) {
 
     let varIntString = numToVarInt(number);
 
-    console.log(`${number} => 0x ${hexString} (big endian)`);
-    console.log(`${number} => 0x ${hexStringLE} (little endian)`);
-    console.log(`${number} => 0x ${varIntString} (little endian)`);
+    console.log(`${number} => 0x${hexString} (big endian)`);
+    console.log(`${number} => 0x${hexStringLE} (little endian)`);
+    console.log(`${number} => 0x${varIntString} (little endian)`);
 }
 
-conversion(466321);
+conversion(0xF01);
