@@ -1,4 +1,4 @@
-pragma solidity 0.5.11;
+pragma solidity 0.5.12;
 
 contract ERC20 {
     // 0x29a0d7a9d228020b6b52ca01a6959fa6035aed0b6b651ed6b95bfe98ef265435
