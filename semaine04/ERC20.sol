@@ -1,7 +1,7 @@
-pragma solidity 0.5.12;
+pragma solidity 0.5.11;
 
 contract ERC20 {
-    // 0x29a0d7a9d228020b6b52ca01a6959fa6035aed0b6b651ed6b95bfe98ef265435
+    // 0x5f02a0771bab4dfe16353708e8576e27d46d77e8
     string public name = "ERC20 Token";
     string public symbol = "E20";
     uint256 public decimals = 18;
@@ -40,7 +40,7 @@ contract ERC20 {
 
     function approve(address spender, uint256 amount) external returns(bool) {
         require(spender != address(0), "Approving to zero address");
-        _allowances[msg.sender][spender] += amount;
+        _allowances[msg.sender][spender] = amount;
         emit Approval(msg.sender, spender, amount);
         return true;
     }
