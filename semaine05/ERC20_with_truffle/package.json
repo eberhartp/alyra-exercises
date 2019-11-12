@@ -6,6 +6,7 @@
         "npm": "6.12.x"
     },
     "devDependencies": {
+        "@openzeppelin/test-helpers": "^0.5.3",
         "truffle": "^5.0.44"
     },
     "dependencies": {
