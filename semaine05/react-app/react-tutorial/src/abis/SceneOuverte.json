@@ -1,0 +1,74 @@
+{
+    "contractName": "SceneOuverte",
+    "abi":
+    [
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "artisteEncours",
+            "outputs": [
+                {
+                    "internalType": "string",
+                    "name": "",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "passerArtisteSuivant",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_nomDArtiste",
+                    "type": "string"
+                }
+            ],
+            "name": "sInscrire",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getTour",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ],
+    "networks": {
+        "5777": {
+            "events": {},
+            "links": {},
+            "address": "",
+            "transactionHash": ""
+        },
+        "3": {
+            "events": {},
+            "links": {},
+            "address": "",
+            "transactionHash": ""
+        }
+    }
+}
