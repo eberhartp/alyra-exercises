@@ -1,70 +1,125 @@
-import React, { Component } from "react";
-import SimpleStorageContract from "./contracts/SimpleStorage.json";
-import getWeb3 from "./getWeb3";
-
-import "./App.css";
+import React, { Component } from 'react';
+import Web3 from 'web3';
+import './App.css';
+import SceneOuverte from "./contracts/SceneOuverte.json"
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  constructor(props) {
+    super(props);
+    this.state = {
+      web3: null,
+      account: "",
+      sceneOuverte: "",
+      tour: "",
+      artisteActuel: "",
+      loading: true
+    };
+    this.passerArtiste = this.passerArtiste.bind(this);
+  }
 
-  componentDidMount = async () => {
-    try {
-      // Get network provider and web3 instance.
-      const web3 = await getWeb3();
+  async componentWillMount() {
+    await this.loadWeb3();
+    await this.loadBlockchainData();
+  }
 
-      // Use web3 to get the user's accounts.
-      const accounts = await web3.eth.getAccounts();
-
-      // Get the contract instance.
-      const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
-
-      // Set web3, accounts, and contract to the state, and then proceed with an
-      // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance }, this.runExample);
-    } catch (error) {
-      // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
-      console.error(error);
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert("Non-Ethereum based browser. You should consider trying Metamask!")
     }
-  };
+  }
 
-  runExample = async () => {
-    const { accounts, contract } = this.state;
+  async loadBlockchainData() {
+    const web3 = window.web3;
 
-    // Stores a given value, 5 by default.
-    await contract.methods.set(5).send({ from: accounts[0] });
+    const accounts = await web3.eth.getAccounts();
+    this.setState({
+      account: accounts[0],
+      web3: web3
+    });
 
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
+    const networkId = await web3.eth.net.getId();
+    const networkData = SceneOuverte.networks[networkId];
 
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
+    if (networkData) {
+      const sceneOuverte = new web3.eth.Contract(SceneOuverte.abi, networkData.address);
+      const tour = await sceneOuverte.methods.getTour().call();
+      const artisteActuel = await sceneOuverte.methods.artisteEncours().call();
+      this.setState({
+        sceneOuverte: sceneOuverte._address,
+        tour,
+        artisteActuel
+      });
+    } else {
+      window.alert("SceneOuverte contract not deployed to detected network");
+    }
+  }
+
+  async ajouterArtiste(nomArtiste) {
+    const { web3, sceneOuverte, account } = this.state;
+    const contract = new web3.eth.Contract(SceneOuverte.abi, sceneOuverte);
+
+    await contract.methods.sInscrire(nomArtiste).send({from : account});
+  }
+
+  async passerArtiste() {
+    const { web3, sceneOuverte, account } = this.state;
+    const contract = new web3.eth.Contract(SceneOuverte.abi, sceneOuverte);
+
+    await contract.methods.passerArtisteSuivant().send({from : account});
+
+    const tour = await contract.methods.getTour().call();
+    const artisteActuel = await contract.methods.artisteEncours().call();
+    this.setState({
+      tour,
+      artisteActuel
+    });
+  }
 
   render() {
-    if (!this.state.web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
-    }
+    const { artisteActuel, tour } = this.state;
     return (
       <div className="App">
-        <h1>Good to Go!</h1>
-        <p>Your Truffle Box is installed and ready.</p>
-        <h2>Smart Contract Example</h2>
-        <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p>
-        <p>
-          Try changing the value stored on <strong>line 40</strong> of App.js.
-        </p>
-        <div>The stored value is: {this.state.storageValue}</div>
+        <div className="App-header">
+          <h2>Interaction avec SceneOuverte</h2>
+          <div className="row">
+            <h3>Ajout Artiste</h3>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                const name = this.nomArtiste.value;
+                this.ajouterArtiste(name);
+              }}
+            >
+              <div className="form-group mr-sm-2">
+                <input
+                  id="nomArtiste"
+                  type="text"
+                  ref={(input) => {
+                    this.nomArtiste = input
+                    }}
+                  className="form-control"
+                  placeholder="Nom de l'artiste"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+          </div>
+          <div className="row">
+            <h3>Passer au prochain artiste</h3>
+            <button onClick={ this.passerArtiste } className="btn btn-primary"> >> </button>
+          </div>
+          <div className="row">
+            <h3>Artiste Actuel</h3>
+            <label id="tour">Le tour actuel est à {tour}</label><br></br>
+            <label id="artisteActuel">Artiste actuel est {artisteActuel}</label>
+          </div>
+        </div>
       </div>
     );
   }
