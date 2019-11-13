@@ -1,0 +1,11 @@
+{
+    "name": "scene-ouverte",
+    "version": "0.0.1",
+    "engines": {
+        "node": "12.13.0",
+        "npm": "6.12.x"
+    },
+    "devDependencies": {
+        "truffle": "^5.1.0"
+    }
+}
